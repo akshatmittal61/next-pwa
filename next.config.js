@@ -1,21 +1,13 @@
-const path = require("path");
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require("next-pwa")({
+	dest: "public",
+	register: true,
+	skipWaiting: true,
+	runtimeCaching,
+	buildExcludes: [/middleware-manifest.json$/],
+});
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-	reactStrictMode: true,
-	images: {
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "**",
-			},
-		],
-		dangerouslyAllowSVG: true,
-		domains: ["localhost"],
-	},
-	sassOptions: {
-		includePaths: [path.join(__dirname, "styles")],
-	},
-};
-
+const nextConfig = withPWA({
+	// next config
+});
 module.exports = nextConfig;
